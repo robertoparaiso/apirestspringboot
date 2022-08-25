@@ -9,6 +9,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootApplication
 public class ManagersystemsApplication {
 
@@ -19,41 +22,26 @@ public class ManagersystemsApplication {
 	@Bean
 	CommandLineRunner initDatabase(PaisRepository paisRepository, UsuarioRepository usuarioRepository) {
 		return  args -> {
-			paisRepository.deleteAll();
-			usuarioRepository.deleteAll();
-
-			Pais p1 = new Pais();
-			p1.setNome("Brasil");
-			p1.setSigla("BR");
-			p1.setGentilico("Brasileiro");
-			paisRepository.save(p1);
-
-			Pais p2 = new Pais();
-			p2.setNome("Argentina");
-			p2.setSigla("AR");
-			p2.setGentilico("Argentino");
-			paisRepository.save(p2);
-
-			Pais p3 = new Pais();
-			p3.setNome("Alemanha");
-			p3.setSigla("AL");
-			p3.setGentilico("Alemão");
-			paisRepository.save(p3);
-
-			Usuario u1 = new Usuario();
-			u1.setLogin("convidado");
-			u1.setSenha("manager");
-			u1.setNome("Usuário convidado");
-			u1.setAdministrador(false);
-			usuarioRepository.save(u1);
-
-			Usuario u2 = new Usuario();
-			u2.setLogin("admin");
-			u2.setSenha("suporte");
-			u2.setNome("Gestor");
-			u2.setAdministrador(true);
-			usuarioRepository.save(u2);
+			savePais(paisRepository);
+			saveUsuario(usuarioRepository);
 		};
+	}
+
+	public void savePais(PaisRepository paisRepository) {
+		paisRepository.deleteAll();
+		List<Pais> listPaises = new ArrayList<>();
+		listPaises.add(new Pais(null, "Brasil", "BR", "Brasileiro"));
+		listPaises.add(new Pais(null, "Argentina", "AR", "Argentino"));
+		listPaises.add(new Pais(null, "Alemanha", "AL", "Alemão"));
+		listPaises.forEach(p -> paisRepository.save(p));
+	}
+
+	public void saveUsuario(UsuarioRepository usuarioRepository) {
+		usuarioRepository.deleteAll();
+		List<Usuario> listUsuario = new ArrayList<>();
+		listUsuario.add(new Usuario(null, "convidado", "manager", "Usuário convidado", false));
+		listUsuario.add(new Usuario(null, "admin", "suporte", "Gestor", true));
+		listUsuario.forEach(u -> usuarioRepository.save(u));
 	}
 
 }

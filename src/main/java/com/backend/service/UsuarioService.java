@@ -2,7 +2,7 @@ package com.backend.service;
 
 import com.backend.entity.Token;
 import com.backend.entity.Usuario;
-import com.backend.entity.UsuarioAutenticado;
+import com.backend.entity.dto.UsuarioAutenticado;
 import com.backend.repository.TokenRepository;
 import com.backend.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;

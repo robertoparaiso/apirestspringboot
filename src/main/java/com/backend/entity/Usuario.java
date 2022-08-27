@@ -1,6 +1,7 @@
 package com.backend.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,5 +27,6 @@ public class Usuario implements Serializable {
     private String nome;
 
     @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean administrador;
 }
